@@ -1,0 +1,16 @@
+{
+  "name": "serverless-task-manager",
+  "version": "1.0.0",
+  "description": "A serverless task manager",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "test": "echo 'No tests specified' && exit 0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1.0"
+  },
+  "devDependencies": {
+    "serverless": "^1.45.0"
+  }
+}
