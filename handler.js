@@ -5,13 +5,16 @@ const tasksTable = 'Tasks';
 
 module.exports.createTask = async (event) => {
   const task = JSON.parse(event.body);
+  if (!task.id) {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Task id is required' }) };
+  }
   const params = {
     TableName: tasksTable,
     Item: { id: task.id, name: task.name, completed: task.completed },
   };
 
   await dynamo.put(params).promise();
-  return { statusCode: 201, body: JSON.stringify(task) };
+  return { statusCode: 201, body: JSON.stringify(task) };\
 };
 
 module.exports.updateTask = async (event) => {
