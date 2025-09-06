@@ -1,0 +1,48 @@
+service: serverless-task-manager
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+
+functions:
+  createTask:
+    handler: handler.createTask
+    events:
+      - http:
+          path: tasks
+          method: post
+  updateTask:
+    handler: handler.updateTask
+    events:
+      - http:
+          path: tasks/{id}
+          method: put
+  deleteTask:
+    handler: handler.deleteTask
+    events:
+      - http:
+          path: tasks/{id}
+          method: delete
+  listTasks:
+    handler: handler.listTasks
+    events:
+      - http:
+          path: tasks
+          method: get
+
+resources:
+  Resources:
+    TasksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Tasks
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
