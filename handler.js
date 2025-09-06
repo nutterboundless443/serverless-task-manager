@@ -14,7 +14,7 @@ module.exports.createTask = async (event) => {
   };
 
   await dynamo.put(params).promise();
-  return { statusCode: 201, body: JSON.stringify(task) };\
+  return { statusCode: 201, body: JSON.stringify(task) };
 };
 
 module.exports.updateTask = async (event) => {
